@@ -1,6 +1,5 @@
 "use client";
 import BookViewerModel from "@/components/BookViewerModel";
-import BookViewer3D from "@/components/BookViewerModel";
 import HomeButtons from "@/components/forms/PatientForm";
 import PasskeyModel from "@/components/PasskeyModel";
 import Image from "next/image";

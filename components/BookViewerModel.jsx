@@ -9,7 +9,7 @@ import * as THREE from "three";
 import { useState } from "react";
 
 // 🔷 BookModel
-const BookModel = ({ position = [0, 0, 0] }) => {
+const BookModel = () => {
   const modelRef = useRef();
   const gltf = useLoader(GLTFLoader, "/models/blue-book.glb");
   const [rotated, setRotated] = useState(false);

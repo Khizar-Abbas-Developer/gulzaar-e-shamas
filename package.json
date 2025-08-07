@@ -18,7 +18,7 @@
     "@radix-ui/react-radio-group": "^1.2.1",
     "@radix-ui/react-select": "^2.1.2",
     "@radix-ui/react-slot": "^1.1.2",
-    "@react-three/drei": "^10.6.1",
+    "@react-three/drei": "^9.89.3",
     "@react-three/fiber": "^9.3.0",
     "@reduxjs/toolkit": "^2.6.1",
     "@sentry/nextjs": "^9.10.1",
