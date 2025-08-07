@@ -7,7 +7,7 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { ClipLoader } from "react-spinners";
-
+//
 export default function Home() {
   const [user, setUser] = useState<"admin" | "patient" | "doctor">("patient");
   const searchParams = useSearchParams(); // Unwrap searchParams correctly
