@@ -29,19 +29,12 @@ export default function Home() {
           <ClipLoader color="shad-primary-btn" />
         </div>
       ) : (
-        <div className="flex flex-col-reverse md:flex-row h-[100vh] md:h-screen w-full overflow-hidden">
+        <div className="flex flex-col-reverse md:flex-row h-[100vh] md:h-screen w-full items-center justify-center mx-auto overflow-hidden">
           {isAdmin && <PasskeyModel user={user} />}
 
           {/* LEFT SIDE — FORM */}
           <section className="relative z-10 w-full md:w-1/2 flex items-center justify-center p-6 md:p-12">
             <div className="w-full max-w-[496px]">
-              <Image
-                src="/assets/icons/logo-full.svg"
-                width={1000}
-                height={1000}
-                alt="patient"
-                className="mb-12 h-10 w-fit"
-              />
               <HomeButtons fetchLoading={fetchLoading} />
               <div className="text-14-regular mt-20 flex justify-between items-center">
                 <div className="text-dark-600 flex flex-row-reverse justify-center items-center gap-2">
@@ -57,7 +50,7 @@ export default function Home() {
           </section>
 
           {/* RIGHT SIDE — BOOK VIEWER */}
-          <div className="relative z-0 w-full md:w-1/2 h-[400px] md:h-full">
+          <div className="z-0 w-[100%] ml-16 md:ml-0 md:w-1/2 h-full md:h-full flex justify-center items-center">
             <BookViewerModel />
           </div>
         </div>

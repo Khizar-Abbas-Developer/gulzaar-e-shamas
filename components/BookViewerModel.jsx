@@ -9,11 +9,40 @@ import * as THREE from "three";
 import { useState } from "react";
 
 // 🔷 BookModel
+// 🔷 BookModel.tsx
 const BookModel = () => {
   const modelRef = useRef();
   const gltf = useLoader(GLTFLoader, "/models/blue-book.glb");
   const [rotated, setRotated] = useState(false);
+  const [scale, setScale] = useState(0.23); // default scale for md and up
 
+  // 🔍 Responsive scale based on screen width
+  useEffect(() => {
+    const handleResize = () => {
+      const isSmallScreen = window.innerWidth < 768; // Tailwind's md breakpoint
+      setScale(isSmallScreen ? 0.2 : 0.25); // Adjust scale as needed
+    };
+
+    handleResize(); // Initial check
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  // ✨ Center model
+  useEffect(() => {
+    if (modelRef.current) {
+      const box = new THREE.Box3().setFromObject(modelRef.current);
+      const center = new THREE.Vector3();
+      box.getCenter(center);
+
+      // Move model to the center of the scene
+      modelRef.current.position.x -= center.x;
+      modelRef.current.position.y -= center.y;
+      modelRef.current.position.z -= center.z;
+    }
+  }, [gltf]);
+
+  // 🌀 Rotation animation
   useFrame((_, delta) => {
     if (modelRef.current && !rotated) {
       const targetRotation = -Math.PI / 3;
@@ -28,14 +57,7 @@ const BookModel = () => {
     }
   });
 
-  return (
-    <primitive
-      ref={modelRef}
-      object={gltf.scene}
-      scale={0.25}
-      position={[0, -1, 0]}
-    />
-  );
+  return <primitive ref={modelRef} object={gltf.scene} scale={scale} />;
 };
 
 // 🔷 AdjustCamera
@@ -43,8 +65,18 @@ const AdjustCamera = () => {
   const { camera } = useThree();
 
   useEffect(() => {
-    camera.position.set(0, 0.3, 3);
-    camera.lookAt(new THREE.Vector3(0, 0.3, 0));
+    const handleResize = () => {
+      const isSmallScreen = window.innerWidth < 768;
+
+      // Adjust camera height and target based on screen size
+      const yPos = isSmallScreen ? 0.15 : 0.3;
+      camera.position.set(0, yPos, 3);
+      camera.lookAt(new THREE.Vector3(0, yPos, 0));
+    };
+
+    handleResize(); // Initial set
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, [camera]);
 
   return null;
@@ -56,7 +88,7 @@ const BookViewerModel = () => {
     <div className="w-full h-full flex items-center justify-center">
       <Canvas
         camera={{ position: [0, 1.5, 3], fov: 45 }}
-        style={{ width: "100%", height: "100%" }}
+        className="w-full h-full"
       >
         <ambientLight intensity={0.8} />
         <directionalLight position={[5, 5, 5]} intensity={1} />
