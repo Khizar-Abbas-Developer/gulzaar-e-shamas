@@ -49,7 +49,7 @@ export type SubmitButtonProps = {
   isLoading: boolean;
   className?: string;
   children: React.ReactNode;
-  handleClick: () => void;
+  handleClick?: () => void;
 };
 
 // Correct type for SearchParamProps

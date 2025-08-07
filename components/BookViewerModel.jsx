@@ -20,7 +20,7 @@ const BookModel = () => {
   useEffect(() => {
     const handleResize = () => {
       const isSmallScreen = window.innerWidth < 768; // Tailwind's md breakpoint
-      setScale(isSmallScreen ? 0.2 : 0.25); // Adjust scale as needed
+      setScale(isSmallScreen ? 0.24 : 0.25); // Adjust scale as needed
     };
 
     handleResize(); // Initial check

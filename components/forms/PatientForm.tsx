@@ -4,13 +4,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Form } from "../ui/form";
-import { patientSchema } from "@/lib/schema";
 import SubmitButton from "../SubmitButton";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { createPatient } from "@/app/(actions)/patient.actions";
 import { useDispatch } from "react-redux";
-import { basicDataStart, basicDataSuccess } from "@/redux/patient/patientSlice";
 
 const HomeButtons = ({
   fetchLoading,
@@ -20,70 +17,33 @@ const HomeButtons = ({
   const dispatch = useDispatch();
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
-  const form = useForm<z.infer<typeof patientSchema>>({
-    resolver: zodResolver(patientSchema),
-    defaultValues: {
-      name: "",
-      email: "",
-      phone: "",
-    },
-  });
-
-  const onSubmit = async (values: z.infer<typeof patientSchema>) => {
-    setIsLoading(true);
-    dispatch(basicDataStart());
-    const { name, email, phone } = values;
-
-    const result = await createPatient({ name, email, phone });
-    dispatch(basicDataSuccess(result.data));
-    if (result.oldUser) {
-      router.push(`/patients/${result.data.id}/new-appointment`);
-      fetchLoading(true);
-    } else {
-      if (result?.success && result.data?.id) {
-        router.push(`/patients/${result.data.id}/register`);
-        fetchLoading(true);
-        setIsLoading(false);
-      } else {
-        console.error(
-          "Failed to create patient:",
-          result?.message || "Unknown error"
-        );
-        setIsLoading(false);
-
-        // Optional: Handle the error state in your UI (e.g., show an error message).
-      }
-    }
-  };
   return (
     <>
-      <Form {...form}>
-        <form
-          onSubmit={form.handleSubmit(onSubmit)}
-          className="flex flex-col md:flex-row gap-10 w-full justify-between"
-        >
+      <div>
+        <form className="flex flex-col md:flex-row gap-10 w-full justify-between">
           <div className="flex justify-end">
             <SubmitButton
               isLoading={isLoading}
-              handleClick={form.handleSubmit(onSubmit)}
-              className="w-full flex flex-col gap-4 py-12 px-6 bg-yellow-500 text-black hover:bg-yellow-600"
+              className="w-full flex flex-col gap-2 py-8 px-4 bg-yellow-500 text-black hover:bg-yellow-600 md:gap-4 md:py-12 md:px-6"
             >
-              <p className="text-xl font-urdu">ابھی کتاب خریدیں</p>
-              <p className="text-xl">Buy Book Now</p>
+              <p className="text-base md:text-xl font-urdu">ابھی کتاب خریدیں</p>
+              <p className="text-base md:text-xl">Buy Book Now</p>
             </SubmitButton>
           </div>
+
           <div className="flex justify-start">
             <SubmitButton
               isLoading={isLoading}
-              handleClick={form.handleSubmit(onSubmit)}
-              className="w-full flex flex-col gap-4 py-12 px-6 bg-[#1f9367] text-white "
+              className="w-full flex flex-col gap-2 py-8 px-4 bg-[#1f9367] text-white md:gap-4 md:py-12 md:px-6"
             >
-              <p className="text-xl font-urdu">شجرے کا اندراج کروائیں</p>
-              <p className="text-xl">Register the family tree</p>
+              <p className="text-base md:text-xl font-urdu">
+                شجرے کا اندراج کروائیں
+              </p>
+              <p className="text-base md:text-xl">Register the family tree</p>
             </SubmitButton>
           </div>
         </form>
-      </Form>
+      </div>
     </>
   );
 };
