@@ -60,20 +60,28 @@ const HomeButtons = ({
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="space-y-6 flex-1"
+          className="flex flex-col md:flex-row gap-10 w-full justify-between"
         >
-          <SubmitButton
-            isLoading={isLoading}
-            handleClick={form.handleSubmit(onSubmit)}
-          >
-            Get Started
-          </SubmitButton>
-          <SubmitButton
-            isLoading={isLoading}
-            handleClick={form.handleSubmit(onSubmit)}
-          >
-            Get Started
-          </SubmitButton>
+          <div className="flex justify-end">
+            <SubmitButton
+              isLoading={isLoading}
+              handleClick={form.handleSubmit(onSubmit)}
+              className="w-full flex flex-col gap-4 py-12 px-6 bg-yellow-500 text-black hover:bg-yellow-600"
+            >
+              <p className="text-xl font-urdu">ابھی کتاب خریدیں</p>
+              <p className="text-xl">Buy Book Now</p>
+            </SubmitButton>
+          </div>
+          <div className="flex justify-start">
+            <SubmitButton
+              isLoading={isLoading}
+              handleClick={form.handleSubmit(onSubmit)}
+              className="w-full flex flex-col gap-4 py-12 px-6 bg-[#1f9367] text-white "
+            >
+              <p className="text-xl font-urdu">شجرے کا اندراج کروائیں</p>
+              <p className="text-xl">Register the family tree</p>
+            </SubmitButton>
+          </div>
         </form>
       </Form>
     </>

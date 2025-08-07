@@ -25,6 +25,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <link
+          href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu&display=swap"
+          rel="stylesheet"
+        ></link>
+      </head>
       <body
         className={`${cn(
           "min-h-screen bg-dark-300 font-sans antialiased",

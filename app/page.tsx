@@ -34,7 +34,7 @@ export default function Home() {
 
           {/* LEFT SIDE — FORM */}
           <section className="relative z-10 w-full md:w-1/2 flex items-center justify-center p-6 md:p-12">
-            <div className="w-full max-w-[496px]">
+            <div className="w-full max-w-[396px]">
               <HomeButtons fetchLoading={fetchLoading} />
               <div className="text-14-regular mt-20 flex justify-between items-center">
                 <div className="text-dark-600 flex flex-row-reverse justify-center items-center gap-2">
