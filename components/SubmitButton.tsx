@@ -8,10 +8,11 @@ const SubmitButton = ({
   className,
   children,
   handleClick,
+  type,
 }: SubmitButtonProps) => {
   return (
     <Button
-      type="submit"
+      type={type || "submit"}
       disabled={isLoading}
       className={className ?? "shad-primary-btn w-full"}
       onClick={handleClick}

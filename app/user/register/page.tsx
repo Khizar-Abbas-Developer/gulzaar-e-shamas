@@ -3,13 +3,12 @@ import Image from "next/image";
 import RegisterForm from "@/components/forms/RegisterForm";
 import { useSelector } from "react-redux";
 import { RootState } from "@/types";
-import { redirect } from "next/navigation";
 const Register = () => {
   const patient = useSelector(
     (state: RootState) => state.patient.currentPatient
   );
   if (!patient || !patient.email) {
-    redirect("/");
+    // redirect("/");
   }
   return (
     <div className="flex h-screen max-h-screen">

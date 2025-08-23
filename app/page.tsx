@@ -2,7 +2,6 @@
 import BookViewerModel from "@/components/BookViewerModel";
 import HomeButtons from "@/components/forms/PatientForm";
 import PasskeyModel from "@/components/PasskeyModel";
-import Image from "next/image";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -37,11 +36,6 @@ export default function Home() {
             <div className="w-full max-w-[396px]">
               <HomeButtons fetchLoading={fetchLoading} />
               <div className="text-14-regular mt-20 flex justify-between items-center">
-                <div className="text-dark-600 flex flex-row-reverse justify-center items-center gap-2">
-                  <p> 2025</p>
-                  <p>گلزارِ شمس تبریزؒ</p>
-                  <p>©</p>
-                </div>
                 <Link href="/?admin=true" className="text-green-500">
                   Admin
                 </Link>

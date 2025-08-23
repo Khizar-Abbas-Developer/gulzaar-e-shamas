@@ -22,6 +22,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/patients/[userId]/register/page.tsx", "components/forms/AppointmentForm.tsx", "app/patients/[userId]/new-appointment/success/page.tsx", "components/BookViewerModel.jsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/user/register/page.tsx", "components/forms/AppointmentForm.tsx", "app/patients/[userId]/new-appointment/success/page.tsx", "components/BookViewerModel.jsx"],
   "exclude": ["node_modules"]
 }

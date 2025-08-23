@@ -2,7 +2,6 @@
 import AppointmentForm from "@/components/forms/AppointmentForm";
 import { RootState } from "@/types";
 import Image from "next/image";
-import { redirect } from "next/navigation";
 import { useSelector } from "react-redux";
 
 const NewAppointment = () => {
@@ -10,7 +9,7 @@ const NewAppointment = () => {
     (state: RootState) => state.patient.currentPatient
   );
   if (!patient || !patient.email) {
-    redirect("/");
+    // redirect("/");
   }
   return (
     <div className="flex h-screen max-h-screen">
