@@ -1,4 +1,5 @@
 export const GenderOptions = ["male", "female", "other"];
+export const yesOrNoOptions = ["Yes", "No"];
 
 export const PatientFormDefaultValues = {
   firstName: "",
@@ -27,19 +28,29 @@ export const PatientFormDefaultValues = {
 };
 
 export const IdentificationTypes = [
-  "Birth Certificate",
   "Driver's License",
-  "Medical Insurance Card/Policy",
-  "Military ID Card",
   "National Identity Card",
-  "Passport",
-  "Resident Alien Card (Green Card)",
-  "Social Security Card",
-  "State ID Card",
-  "Student ID Card",
-  "Voter ID Card",
   "CNIC (National Identification Card)",
+  "Passport",
 ];
+export const IdentificationTypesUrdu = [
+  "ڈرائیور کا لائسنس",
+  "قومی شناختی کارڈ",
+  "شناختی کارڈ",
+  "پاسپورٹ",
+];
+
+export const listOfImams = [
+  "حسنؑ بن علیؑ",
+  "حسینؑ بن علیؑ",
+  " علی زین العابدینؑ بن حسینؑ",
+  "محمد الباقرؑ بن زین العابدینؑ",
+  "جعفر الصادقؑ بن محمدؑ الباقرؑ",
+  "موسىٰ الكاظمؑ بن جعفرؑ الصادقؑ",
+  "على الرضاؑ بن موسىٰؑ الكاظمؑ",
+  "محمد التقيؑ بن علىؑ الرضاؑ",
+  "علی النقيؑ بن محمدؑ التقيؑ",
+]
 
 export const Doctors = [
   {

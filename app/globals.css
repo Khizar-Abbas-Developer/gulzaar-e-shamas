@@ -1,7 +1,22 @@
 @import url("https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@plugin "daisyui"; /* DaisyUI plugin comes AFTER Tailwind directives */
+
+
+.urdu-text {
+  font-family: "Noto Nastaliq Urdu", serif;
+}
+
+.input {
+  @apply border rounded-md p-2 w-full text-right;
+}
+.btn-primary {
+  @apply bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700;
+}
 
 /* ========================================== TAILWIND STYLES */
 @layer base {
@@ -110,7 +125,7 @@
   }
 
   .header {
-    @apply text-32-bold md:text-36-bold text-white;
+    @apply text-24-bold md:text-36-bold text-white;
   }
 
   .sub-header {

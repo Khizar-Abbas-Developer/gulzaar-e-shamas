@@ -1,0 +1,119 @@
+/* Title */
+.countdownName {
+  color: #fff;
+  font-size: clamp(1.5rem, 5vw, 2rem);
+  margin-bottom: 1rem;
+  text-align: center;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.countdownDate {
+  color: #eafbfa;
+  margin: 0 0 1.5rem;
+  text-align: center;
+  font-size: clamp(1rem, 3vw, 1.25rem);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.countdownDisplay {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+  gap: 1rem;
+  justify-content: center;
+  padding: 0.5rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.countdownValue {
+  background-color: #2f5d6f;
+  border-radius: 50%;
+  color: #03d5c0;
+  aspect-ratio: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  font-size: clamp(1.5rem, 5vw, 2.5rem);
+  font-weight: 700;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s ease;
+}
+
+.countdownValue:hover {
+  transform: scale(1.05);
+}
+
+.countdownValue > span {
+  color: #fff;
+  font-size: clamp(0.75rem, 2vw, 0.875rem);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-top: 0.2rem;
+  font-weight: 500;
+}
+
+.controlButtons {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.controlButtons > button {
+  background-color: #03b4a2;
+  border-radius: 50%;
+  width: clamp(45px, 8vw, 50px);
+  height: clamp(45px, 8vw, 50px);
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(0.65rem, 2vw, 0.775rem);
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.controlButtons button:hover {
+  background-color: #0b7c71;
+  transform: scale(1.1);
+}
+
+@media (max-width: 480px) {
+  .countdownDisplay {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+  }
+
+  .countdownValue {
+    font-size: clamp(1.25rem, 4vw, 1.75rem);
+  }
+
+  .countdownValue > span {
+    font-size: 0.75rem;
+  }
+
+  .controlButtons {
+    margin-top: 1.5rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .countdownName {
+    font-size: 1.25rem;
+  }
+
+  .countdownDate {
+    font-size: 1rem;
+  }
+
+  .controlButtons > button {
+    width: 40px;
+    height: 40px;
+  }
+}

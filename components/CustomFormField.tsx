@@ -16,7 +16,7 @@ import { CustomProps, FormFieldType, RenderFieldProps } from "@/types";
 import Image from "next/image";
 import DatePicker from "react-datepicker";
 import { RadioGroup, RadioGroupItem } from "./ui/radio-group";
-import { GenderOptions } from "@/constants";
+import { GenderOptions, yesOrNoOptions } from "@/constants";
 import { Label } from "./ui/label";
 import { Select, SelectContent, SelectTrigger, SelectValue } from "./ui/select";
 import { Textarea } from "./ui/textarea";
@@ -104,6 +104,26 @@ const RenderField = ({
             />
           </FormControl>
         </div>
+      );
+      break;
+    case FormFieldType.YESORNO:
+      return (
+        <FormControl>
+          <RadioGroup
+            className="flex h-11 gap-6 xl:justify-between"
+            onValueChange={field.onChange}
+            defaultValue={field.value}
+          >
+            {yesOrNoOptions.map((option, i) => (
+              <div key={option + i} className="radio-group">
+                <RadioGroupItem value={option} id={option} />
+                <Label htmlFor={option} className="cursor-pointer text-white">
+                  {option}
+                </Label>
+              </div>
+            ))}
+          </RadioGroup>
+        </FormControl>
       );
       break;
     case FormFieldType.SELECT:
@@ -197,6 +217,7 @@ const CustomFormField = ({
   name,
   placeholder,
   label,
+  labelUrdu,
   iconSrc,
   iconAlt,
   children,
@@ -211,9 +232,18 @@ const CustomFormField = ({
       name={name}
       render={({ field }) => (
         <FormItem className="flex-1">
-          {fieldType !== FormFieldType.CHECKBOX && label && (
-            <FormLabel className="text-white">{label}</FormLabel>
+          {/* Show both labels side by side */}
+          {fieldType !== FormFieldType.CHECKBOX && (label || labelUrdu) && (
+            <div className="flex justify-between items-center mb-1">
+              <FormLabel className="text-white">{label}</FormLabel>
+              {labelUrdu && (
+                <FormLabel className="text-white urdu-text text-right mr-2 mb-2">
+                  {labelUrdu}
+                </FormLabel>
+              )}
+            </div>
           )}
+
           <RenderField
             field={field}
             value={value}
@@ -227,6 +257,7 @@ const CustomFormField = ({
             disabled={disabled}
             subCategory={subCategory}
             label={label}
+            labelUrdu={labelUrdu}
             showTimeSelect={showTimeSelect}
           />
           <FormMessage className="shad-error" />

@@ -10,6 +10,7 @@ export type CustomProps = {
   iconSrc?: string;
   iconAlt?: string;
   disabled?: boolean;
+  labelUrdu?: string;
   dateFormat?: string;
   showTimeSelect?: boolean;
   children?: React.ReactNode;
@@ -25,6 +26,7 @@ export enum FormFieldType {
   DATE_PICKER = "datePicker",
   SELECT = "select",
   SKELETON = "skeleton",
+  YESORNO = "yesorno",
 }
 
 export type RenderFieldProps = {
@@ -36,6 +38,7 @@ export type RenderFieldProps = {
   iconSrc?: string;
   iconAlt?: string;
   disabled?: boolean;
+  labelUrdu?: string;
   dateFormat?: string;
   showTimeSelect?: boolean;
   children?: React.ReactNode;

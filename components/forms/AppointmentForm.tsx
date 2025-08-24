@@ -179,6 +179,7 @@ const AppointmentForm = ({
                 control={form.control}
                 name="doctor"
                 label="Doctor"
+                labelUrdu="ڈاکٹر"
                 placeholder="Select a Doctor"
               >
                 {Doctors.map((doctor) => (

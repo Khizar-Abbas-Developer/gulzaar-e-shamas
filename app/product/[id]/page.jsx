@@ -1,64 +1,9 @@
-"use client";
-
 import React from "react";
-// import BookViewerModel from "../../../components/BookViewerModel";
-import "./custom.css";
-
+import CountDown from "@/components/CountDown";
 const Page = () => {
-  // Set countdown for 8 days from now
   return (
     <>
-      {/* For TSX uncomment the commented types below */}
-      <div className="flex gap-5">
-        <div>
-          <span className="countdown font-mono text-4xl">
-            <span
-              style={{ "--value": 15 } /* as React.CSSProperties */}
-              aria-live="polite"
-              aria-label={counter}
-            >
-              15
-            </span>
-          </span>
-          days
-        </div>
-        <div>
-          <span className="countdown font-mono text-4xl">
-            <span
-              style={{ "--value": 10 } /* as React.CSSProperties */}
-              aria-live="polite"
-              aria-label={counter}
-            >
-              10
-            </span>
-          </span>
-          hours
-        </div>
-        <div>
-          <span className="countdown font-mono text-4xl">
-            <span
-              style={{ "--value": 24 } /* as React.CSSProperties */}
-              aria-live="polite"
-              aria-label={counter}
-            >
-              24
-            </span>
-          </span>
-          min
-        </div>
-        <div>
-          <span className="countdown font-mono text-4xl">
-            <span
-              style={{ "--value": 59 } /* as React.CSSProperties */}
-              aria-live="polite"
-              aria-label={counter}
-            >
-              59
-            </span>
-          </span>
-          sec
-        </div>
-      </div>
+      <CountDown />
     </>
   );
 };
