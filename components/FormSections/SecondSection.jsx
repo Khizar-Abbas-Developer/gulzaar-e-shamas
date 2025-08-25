@@ -35,6 +35,8 @@ const DocumentsSection = () => {
     },
   });
 
+  const language = useSelector((state) => state.language.language);
+
   return (
     <>
       <section className={`"space-y-6 flex justify-between w-full"`}>

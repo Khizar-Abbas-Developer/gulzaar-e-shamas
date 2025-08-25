@@ -4,11 +4,7 @@ import Link from "next/link";
 import SubmitButton from "../SubmitButton";
 import { useRouter } from "next/navigation";
 
-const HomeButtons = ({
-  fetchLoading,
-}: {
-  fetchLoading: (value: boolean) => void;
-}) => {
+const HomeButtons = () => {
   const router = useRouter();
   const isLoading = false;
   const handleRedictToProductPage = () => {

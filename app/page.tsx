@@ -17,10 +17,7 @@ export default function Home() {
       setUser("admin");
     }
   }, [isAdmin]);
-  const [loading, setLoading] = useState(false);
-  const fetchLoading = (value: boolean) => {
-    setLoading(value);
-  };
+  const loading = false;
   return (
     <>
       {loading ? (
@@ -34,7 +31,7 @@ export default function Home() {
           {/* LEFT SIDE — FORM */}
           <section className="relative z-10 w-full md:w-1/2 flex items-center justify-center p-6 md:p-12">
             <div className="w-full max-w-[396px]">
-              <HomeButtons fetchLoading={fetchLoading} />
+              <HomeButtons />
               <div className="text-14-regular mt-20 flex justify-between items-center">
                 <Link href="/?admin=true" className="text-green-500">
                   Admin
