@@ -6,6 +6,7 @@ import CustomFormField from "@/components/CustomFormField";
 import { FormFieldType } from "@/types";
 import { IdentificationTypes, IdentificationTypesUrdu } from "@/constants";
 import { SelectItem } from "@/components/ui/select";
+import { useSelector } from "react-redux";
 
 const DocumentsSection = () => {
   const form = useForm({
@@ -35,7 +36,7 @@ const DocumentsSection = () => {
     },
   });
 
-  const language = useSelector((state) => state.language.language);
+  const language = "ur";
 
   return (
     <>

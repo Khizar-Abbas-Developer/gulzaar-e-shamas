@@ -12,11 +12,11 @@ const Register = () => {
   }
 
   return (
-    <div className="flex h-screen max-h-screen">
+    <div className="flex h-[99vh] max-h-screen">
       <section className="remove-scrollbar container">
         <div className="sub-container max-w-[860px] flex-1 flex-col py-10">
           <div className={`flex justify-end urdu-text`}>
-            <div className="flex justify-center">
+            <div className="flex justify-center w-full">
               <Image
                 src="/assets/icons/3.jpg"
                 height={1000}
@@ -38,11 +38,11 @@ const Register = () => {
         </div>
       </section>
       <Image
-        src="/assets/images/register-img.png"
+        src="/assets/script/3.jpg"
         height={1000}
         width={1000}
         alt="patient"
-        className="side-img max-w-[390px]"
+        className="side-img max-w-[490px]"
       />
     </div>
   );

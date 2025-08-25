@@ -34,7 +34,7 @@ const FifthSection = () => {
     },
   });
 
-  const language = useSelector((state) => state.language.language);
+  const language = "ur";
   return (
     <>
       <section className="space-y-6">
