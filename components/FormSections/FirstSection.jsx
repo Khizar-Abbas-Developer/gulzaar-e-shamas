@@ -58,7 +58,6 @@ const PersonalInformation = ({ handleNext, handleBack }) => {
   }, [personalInformation, form]);
 
   const onSubmit = (values) => {
-    console.log("✅ First section values:", values);
     dispatch(storeFirstSection(values));
     handleNext(values);
   };

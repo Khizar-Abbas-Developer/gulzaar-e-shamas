@@ -17,8 +17,6 @@ const ShajraInformation = ({ handleNext, handleBack }) => {
   const lineageInformation = useSelector(
     (state) => state.info.lineage_information
   );
-  console.log(lineageInformation);
-
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
   const form = useForm({
@@ -57,7 +55,6 @@ const ShajraInformation = ({ handleNext, handleBack }) => {
   }, [lineageInformation, form]);
 
   const onSubmit = async (values) => {
-    console.log("✅ third section values:", values);
     dispatch(storeThirdSection(values));
     handleNext(values);
   };

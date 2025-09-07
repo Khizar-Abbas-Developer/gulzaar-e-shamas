@@ -248,13 +248,16 @@ const RenderField = ({
         return (
           <FormControl>
             <FileUploader
-              files={field.value || []} // Ensure it defaults to an empty array
               onChange={(newFiles) => field.onChange(newFiles)}
+              files={field.value || []}
+              initialUrls={field.value || []} // ✅ pass existing URLs as initialUrls
             />
           </FormControl>
         );
       }
       break;
+    // For controlled behavior
+
     case FormFieldType.TEXTAREA:
       return (
         <FormControl>

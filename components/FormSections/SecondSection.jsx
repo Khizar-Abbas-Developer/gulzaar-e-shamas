@@ -9,16 +9,16 @@ import { FormFieldType } from "@/types";
 import { IdentificationTypes } from "@/constants";
 import { SelectItem } from "@/components/ui/select";
 import SubmitButton from "../SubmitButton";
-import { storeSecondSection } from "@/redux/information/info";
+import { storeSecondSection, setUploading } from "@/redux/information/info";
 import { useDispatch, useSelector } from "react-redux";
 import { ClipLoader } from "react-spinners";
+import UploadingLoader from "@/components/UploadingLoader";
+import { uploadToCloudinary } from "@/lib/cloudinary";
 
 const DocumentsSection = ({ handleNext, handleBack }) => {
   const documentsInformation = useSelector(
     (state) => state.info.documents_information
   );
-  console.log(documentsInformation);
-
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
   const form = useForm({
@@ -53,10 +53,51 @@ const DocumentsSection = ({ handleNext, handleBack }) => {
   }, [documentsInformation, form]);
 
   const onSubmit = async (values) => {
-    console.log("✅ second section values:", values);
-    dispatch(storeSecondSection(values));
-    // only go next if all validations passed
-    handleNext(values);
+    if (
+      !values.identificationDocument?.length ||
+      !values.lineageProof?.length
+    ) {
+      alert("Please upload all required documents before proceeding.");
+      return;
+    }
+    setIsLoading(true);
+    dispatch(setUploading(true)); // start uploading
+    try {
+      // Upload identificationDocument files to Cloudinary
+      const idUrls = await uploadToCloudinary(
+        values.identificationDocument || []
+      );
+
+      // Upload lineageProof files to Cloudinary
+      const lineageUrls = await uploadToCloudinary(values.lineageProof || []);
+
+      // Only proceed if uploads were successful
+      if (idUrls.length === 0 || lineageUrls.length === 0) {
+        alert("Failed to upload documents. Please try again.");
+        setUploading(false);
+        return;
+      }
+
+      // Save URLs in Redux instead of files
+      dispatch(
+        storeSecondSection({
+          ...values,
+          identificationDocument: idUrls,
+          lineageProof: lineageUrls,
+        })
+      );
+
+      // ✅ Wait a tiny tick to ensure Redux updates (optional, safe)
+      setTimeout(() => {
+        setIsLoading(false);
+        dispatch(setUploading(false));
+        handleNext(); // Navigate to next step only after uploads are stored
+      }, 50);
+    } catch (error) {
+      console.error("Error uploading documents:", error);
+      alert("Something went wrong while uploading documents.");
+      setIsLoading(false);
+    }
   };
 
   const selectedType = form.watch("identificationType"); // 👈 watch the selected type
@@ -145,7 +186,9 @@ const DocumentsSection = ({ handleNext, handleBack }) => {
             }
             labelUrdu={"دستاویزات اپلوڈ کریں۔"}
             subCategory="fileSelector"
+            initialUrls={documentsInformation.identificationDocument || []} // ✅ pass existing URLs
           />
+
           <CustomFormField
             fieldType={FormFieldType.SKELETON}
             control={form.control}
@@ -153,6 +196,7 @@ const DocumentsSection = ({ handleNext, handleBack }) => {
             label="Paper Proof of Lineage"
             labelUrdu="شجرے کا کاغذی ثبوت"
             subCategory="fileSelector"
+            initialUrls={documentsInformation.lineageProof || []} // ✅ pass existing URLs
           />
 
           <div

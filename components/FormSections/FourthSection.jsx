@@ -61,7 +61,6 @@ const ResidentialInfo = ({ handleNext, handleBack }) => {
   }, [residentialInformation, form]);
 
   const onSubmit = async (values) => {
-    console.log("✅ fourth section values:", values);
     dispatch(storeFourthSection(values));
     handleNext(values);
   };

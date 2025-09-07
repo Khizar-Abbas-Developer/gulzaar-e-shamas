@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
+  uploading: false,
   personal_information: {},
   documents_information: {},
   lineage_information: {},
@@ -12,6 +13,9 @@ const infoSlice = createSlice({
   name: "info",
   initialState,
   reducers: {
+    setUploading: (state, action) => {
+      state.uploading = action.payload;
+    },
     storeFirstSection: (state, action) => {
       state.personal_information = action.payload;
     },
@@ -36,5 +40,6 @@ export const {
   storeThirdSection,
   storeFourthSection,
   storeFifthSection,
+  setUploading,
 } = infoSlice.actions;
 export default infoSlice.reducer;
