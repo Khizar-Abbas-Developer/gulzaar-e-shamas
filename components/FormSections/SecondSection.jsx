@@ -155,7 +155,10 @@ const DocumentsSection = ({ handleNext, handleBack }) => {
             subCategory="fileSelector"
           />
 
-          <div className="flex-1 flex gap-10 justify-center md:justify-start">
+          <div
+            className="flex-1 flex gap-10 justify-center md:justify-start"
+            style={{ gap: "40px" }}
+          >
             <SubmitButton
               type="button"
               isLoading={isLoading}
