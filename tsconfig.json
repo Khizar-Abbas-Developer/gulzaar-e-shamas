@@ -1,0 +1,45 @@
+{
+  "compilerOptions": {
+    "target": "ES2017",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve", // ✅ important for Next.js 13+
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "paths": {
+      "@/*": [
+        "./*"
+      ]
+    }
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "app/patients/[userId]/register/page.tsx",
+    "components/forms/AppointmentForm.tsx",
+    "app/patients/[userId]/new-appointment/success/page.tsx",
+    "components/SubmitButton.tsx",
+    "app/page.tsx"
+, "components/HomeButtons.jsx"  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
