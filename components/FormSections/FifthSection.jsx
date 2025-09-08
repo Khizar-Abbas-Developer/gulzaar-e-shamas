@@ -5,6 +5,7 @@ import { Form } from "../ui/form";
 import { useForm } from "react-hook-form";
 import CustomFormField from "@/components/CustomFormField";
 import { FormFieldType } from "@/types";
+import axios from "axios";
 import SubmitButton from "../SubmitButton";
 import CircularProgressBar from "@/components/CircularProgressBar";
 import { fifthSectionSchema } from "@/lib/schema";
@@ -18,7 +19,6 @@ const FifthSection = ({ handleBack }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const data = createDataToSend(dataFromRedux);
-  const [formData, setFormData] = useState(data);
   const router = useRouter();
   const agreementInformation = useSelector(
     (state) => state.info.agreements_information
@@ -62,19 +62,28 @@ const FifthSection = ({ handleBack }) => {
   }, [agreementInformation, form]);
 
   const onSubmit = async (values) => {
-    setIsSubmitting(true);
-
-    setFormData((prev) => {
-      const updated = {
-        ...prev,
+    try {
+      setIsSubmitting(true);
+      const updatedData = {
+        ...data,
         agreementsInformation: { ...values },
       };
-      console.log(updated); // ✅ always correct
-    });
+      console.log(updatedData);
 
-    setIsSubmitting(false);
-    router.push("/success");
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/shajraForm/create`,
+        updatedData
+      );
+
+      console.log(response);
+      router.push("/success");
+    } catch (error) {
+      console.log("error", error);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
+
   if (isLoading) {
     return (
       <div className="flex justify-center items-center h-screen">
