@@ -54,20 +54,40 @@ export const secondSectionSchema = z.object({
     ),
 });
 
-export const thirdSectionSchema = z.object({
-  AreYouFatmiSyed: z.string().min(1, { message: "Please select Yes or No" }),
-  identificationType: z
-    .string()
-    .min(1, { message: "Please select Imam lineage" }),
-  AreYouNajibUtarfainSyed: z
-    .string()
-    .min(1, { message: "Please select Yes or No" }), // Najib al-Tarafayn Sayyid
-  motherName: z.string().min(2, { message: "Mother name is required" }),
-  maternalGrandFatherName: z
-    .string()
-    .min(2, { message: "Maternal Grand Father name is required" }),
-  note: z.string().optional(),
-});
+export const thirdSectionSchema = z
+  .object({
+    AreYouFatmiSyed: z.string().min(1, { message: "Please select Yes or No" }),
+    identificationType: z
+      .string()
+      .min(1, { message: "Please select Imam lineage" }),
+    AreYouNajibUtarfainSyed: z
+      .string()
+      .min(1, { message: "Please select Yes or No" }),
+    motherName: z.string().optional(),
+    maternalGrandFatherName: z.string().optional(),
+    note: z.string().optional(),
+  })
+  .superRefine((data, ctx) => {
+    if (data.AreYouNajibUtarfainSyed === "Yes") {
+      if (!data.motherName || data.motherName.trim().length < 2) {
+        ctx.addIssue({
+          code: "custom",
+          path: ["motherName"],
+          message: "Mother name is required",
+        });
+      }
+      if (
+        !data.maternalGrandFatherName ||
+        data.maternalGrandFatherName.trim().length < 2
+      ) {
+        ctx.addIssue({
+          code: "custom",
+          path: ["maternalGrandFatherName"],
+          message: "Maternal Grand Father name is required",
+        });
+      }
+    }
+  });
 
 export const fourthSectionSchema = z.object({
   countryName: z

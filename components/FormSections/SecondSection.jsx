@@ -19,6 +19,8 @@ const DocumentsSection = ({ handleNext, handleBack }) => {
   const documentsInformation = useSelector(
     (state) => state.info.documents_information
   );
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const isUploading = useSelector((state) => state.info.uploading);
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
   const form = useForm({
@@ -60,8 +62,7 @@ const DocumentsSection = ({ handleNext, handleBack }) => {
       alert("Please upload all required documents before proceeding.");
       return;
     }
-    setIsLoading(true);
-    dispatch(setUploading(true)); // start uploading
+    setIsSubmitting(true);
     try {
       // Upload identificationDocument files to Cloudinary
       const idUrls = await uploadToCloudinary(
@@ -89,8 +90,7 @@ const DocumentsSection = ({ handleNext, handleBack }) => {
 
       // ✅ Wait a tiny tick to ensure Redux updates (optional, safe)
       setTimeout(() => {
-        setIsLoading(false);
-        dispatch(setUploading(false));
+        setIsSubmitting(false);
         handleNext(); // Navigate to next step only after uploads are stored
       }, 50);
     } catch (error) {
@@ -101,12 +101,17 @@ const DocumentsSection = ({ handleNext, handleBack }) => {
   };
 
   const selectedType = form.watch("identificationType"); // 👈 watch the selected type
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <ClipLoader color="white" />
+      </div>
+    );
+  }
   return (
     <>
-      {isLoading ? (
-        <div className="flex justify-center items-center h-screen">
-          <ClipLoader color="white" />
-        </div>
+      {isSubmitting ? (
+        <UploadingLoader />
       ) : (
         <Form
           {...form}

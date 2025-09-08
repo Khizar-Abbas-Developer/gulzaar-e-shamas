@@ -31,6 +31,8 @@ const ShajraInformation = ({ handleNext, handleBack }) => {
     },
     mode: "onSubmit",
   });
+  const isFatmiSyed = form.watch("AreYouFatmiSyed");
+  const isNajibutarfain = form.watch("AreYouNajibUtarfainSyed");
   // Populate default values dynamically
   useEffect(() => {
     if (lineageInformation && Object.keys(lineageInformation).length > 0) {
@@ -55,8 +57,48 @@ const ShajraInformation = ({ handleNext, handleBack }) => {
   }, [lineageInformation, form]);
 
   const onSubmit = async (values) => {
-    dispatch(storeThirdSection(values));
-    handleNext(values);
+    // Make a shallow copy so we can modify before dispatching
+    const payload = { ...values };
+
+    // Use case-insensitive checks to be robust
+    const fatmi = (payload.AreYouFatmiSyed || "").toString().toLowerCase();
+    const najib = (payload.AreYouNajibUtarfainSyed || "")
+      .toString()
+      .toLowerCase();
+
+    // If user said "No" to Fatmi Syed -> clear that value (and update form UI)
+    if (fatmi === "no") {
+      payload.AreYouFatmiSyed = ""; // what you want to store
+      form.setValue("AreYouFatmiSyed", "", {
+        shouldValidate: false,
+        shouldDirty: true,
+        shouldTouch: true,
+      });
+      form.clearErrors("AreYouFatmiSyed");
+    }
+
+    // If user said "No" to Najib -> clear dependent fields
+    if (najib === "no") {
+      payload.motherName = "";
+      payload.maternalGrandFatherName = "";
+
+      form.setValue("motherName", "", {
+        shouldValidate: false,
+        shouldDirty: true,
+        shouldTouch: true,
+      });
+      form.setValue("maternalGrandFatherName", "", {
+        shouldValidate: false,
+        shouldDirty: true,
+        shouldTouch: true,
+      });
+
+      form.clearErrors(["motherName", "maternalGrandFatherName"]);
+    }
+
+    // Now dispatch & navigate with the modified payload
+    dispatch(storeThirdSection(payload));
+    handleNext(payload);
   };
 
   return (
@@ -121,6 +163,7 @@ const ShajraInformation = ({ handleNext, handleBack }) => {
               control={form.control}
               name="motherName"
               label="Mother Name"
+              disabled={isNajibutarfain === "No"}
               labelUrdu="ماں کا نام"
               placeholder="Mother Name"
               iconAlt="user"
@@ -131,6 +174,7 @@ const ShajraInformation = ({ handleNext, handleBack }) => {
               fieldType={FormFieldType.INPUT}
               control={form.control}
               name="maternalGrandFatherName"
+              disabled={isNajibutarfain === "No"}
               label="Maternal Grand Father Name"
               labelUrdu="نانا کا نام"
               placeholder="Maternal Grand Father Name"
@@ -158,7 +202,7 @@ const ShajraInformation = ({ handleNext, handleBack }) => {
               Back
             </SubmitButton>
             <SubmitButton
-              isLoading={isLoading}
+              isLoading={isFatmiSyed === "No"}
               handleClick={form.handleSubmit(onSubmit)}
             >
               Next

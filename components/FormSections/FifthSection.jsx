@@ -11,6 +11,7 @@ import { fifthSectionSchema } from "@/lib/schema";
 import { useSelector } from "react-redux";
 import { createDataToSend } from "@/lib/utils";
 import { ClipLoader } from "react-spinners";
+import { useRouter } from "next/navigation";
 
 const FifthSection = ({ handleBack }) => {
   const dataFromRedux = useSelector((state) => state.info);
@@ -18,7 +19,7 @@ const FifthSection = ({ handleBack }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const data = createDataToSend(dataFromRedux);
   const [formData, setFormData] = useState(data);
-
+  const router = useRouter();
   const agreementInformation = useSelector(
     (state) => state.info.agreements_information
   );
@@ -71,7 +72,8 @@ const FifthSection = ({ handleBack }) => {
       console.log(updated); // ✅ always correct
     });
 
-    // setIsSubmitting(false);
+    setIsSubmitting(false);
+    router.push("/success");
   };
   if (isLoading) {
     return (
