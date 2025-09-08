@@ -9,14 +9,16 @@ import axios from "axios";
 import SubmitButton from "../SubmitButton";
 import CircularProgressBar from "@/components/CircularProgressBar";
 import { fifthSectionSchema } from "@/lib/schema";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { createDataToSend } from "@/lib/utils";
 import { ClipLoader } from "react-spinners";
 import { useRouter } from "next/navigation";
+import { resetStates } from "@/redux/information/info";
 
 const FifthSection = ({ handleBack }) => {
   const dataFromRedux = useSelector((state) => state.info);
   const [isLoading, setIsLoading] = useState(false);
+  const dispatch = useDispatch();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const data = createDataToSend(dataFromRedux);
   const router = useRouter();
@@ -74,13 +76,12 @@ const FifthSection = ({ handleBack }) => {
         `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/shajraForm/create`,
         updatedData
       );
-
-      console.log(response);
-      router.push("/success");
+      setTimeout(() => {
+        dispatch(resetStates()); // This will reset all the states to initialState
+        router.push("/success");
+      }, 3000); // 5000ms = 5 seconds
     } catch (error) {
       console.log("error", error);
-    } finally {
-      setIsSubmitting(false);
     }
   };
 

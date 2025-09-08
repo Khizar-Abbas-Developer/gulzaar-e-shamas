@@ -31,6 +31,9 @@ const infoSlice = createSlice({
     storeFifthSection: (state, action) => {
       state.agreements_information = action.payload;
     },
+    resetStates: (state) => {
+      return initialState; // Reset all states to initial state
+    },
   },
 });
 
@@ -41,5 +44,6 @@ export const {
   storeFourthSection,
   storeFifthSection,
   setUploading,
+  resetStates,
 } = infoSlice.actions;
 export default infoSlice.reducer;
