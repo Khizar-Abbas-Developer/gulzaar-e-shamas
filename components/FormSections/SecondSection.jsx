@@ -20,7 +20,6 @@ const DocumentsSection = ({ handleNext, handleBack }) => {
     (state) => state.info.documents_information
   );
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const isUploading = useSelector((state) => state.info.uploading);
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
   const form = useForm({

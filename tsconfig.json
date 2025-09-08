@@ -38,7 +38,7 @@
     "app/patients/[userId]/new-appointment/success/page.tsx",
     "components/SubmitButton.tsx",
     "app/page.tsx"
-, "components/HomeButtons.jsx"  ],
+, "components/HomeButtons.jsx", "components/UploadingLoader.jsx"  ],
   "exclude": [
     "node_modules"
   ]

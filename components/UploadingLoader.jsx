@@ -1,35 +1,11 @@
 "use client";
 
 import React from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import server1 from "@/public/assets/images/server1.png";
-import server2 from "@/public/assets/images/server2.png";
 import { ClipLoader } from "react-spinners";
 
 // Define the component's props for clear documentation and type safety
-interface UploadingLoaderProps {
-  isUploading: boolean;
-  progress: number;
-  status: "idle" | "uploading" | "success" | "error";
-}
-
-const UploadingLoader = ({
-  isUploading,
-  progress,
-  status,
-}: UploadingLoaderProps) => {
-  const dotVariants = {
-    move: {
-      x: ["0%", "180%"], // Adjust according to your server image spacing
-      transition: {
-        repeat: Infinity,
-        duration: 1.5,
-        ease: "easeInOut",
-      },
-    },
-  };
-
+const UploadingLoader = ({ progress, status }) => {
   const renderStatusText = () => {
     switch (status) {
       case "uploading":
