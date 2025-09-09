@@ -1,5 +1,6 @@
 "use client";
 
+import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { ClipLoader } from "react-spinners";
 
@@ -21,17 +22,20 @@ const Countdown = () => {
   useEffect(() => {
     const fetchCountdown = async () => {
       try {
-        const res = await fetch("/api/countdown/get-countdown");
-        const data = await res.json();
-
-        // Suppose backend gives a date string like "2025-09-20T00:00:00Z"
-        setTargetDate(new Date(data.countdownDate));
+        const res = await axios.get(
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/countdown/get-countdown`
+        );
+        const date = new Date(res.data.countdownDate);
+        setTargetDate(date);
+        setTimeLeft(calculateTimeLeft(date));
       } catch (error) {
         console.error("Error fetching countdown:", error);
-        // fallback to 15 days if API fails
         const fallbackDate = new Date();
         fallbackDate.setDate(fallbackDate.getDate() + 15);
         setTargetDate(fallbackDate);
+        setTimeLeft(calculateTimeLeft(fallbackDate));
+      } finally {
+        setLoading(false);
       }
     };
 

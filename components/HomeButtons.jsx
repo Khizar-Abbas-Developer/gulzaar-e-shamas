@@ -1,11 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { Button } from "./ui/button";
 
 const HomeButtons = () => {
-  const router = useRouter();
   const isLoading = false;
 
   return (

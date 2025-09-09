@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import { CheckCircle2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 
@@ -16,6 +15,7 @@ const SuccessPage = () => {
             src="/assets/images/success.gif"
             width={230}
             height={230}
+            unoptimized
             className="object-contain"
             alt="success"
           />
