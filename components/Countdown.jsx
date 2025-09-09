@@ -1,8 +1,10 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import { ClipLoader } from "react-spinners";
 
 const Countdown = () => {
+  const [loading, setLoading] = useState(true); // initially true
   const [timeLeft, setTimeLeft] = useState({
     days: 0,
     hours: 0,
@@ -15,22 +17,32 @@ const Countdown = () => {
     typeof window !== "undefined" ? window.innerWidth : 1200
   );
 
-  // Fetch target date from backend
+  // Fetch countdown date from backend
   useEffect(() => {
-    const fetchTargetDate = async () => {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/countdown/get-countdown`
-      );
-      const data = await res.json();
-      setTargetDate(new Date(data.targetDate));
+    const fetchCountdown = async () => {
+      try {
+        const res = await fetch("/api/countdown/get-countdown");
+        const data = await res.json();
+
+        // Suppose backend gives a date string like "2025-09-20T00:00:00Z"
+        setTargetDate(new Date(data.countdownDate));
+      } catch (error) {
+        console.error("Error fetching countdown:", error);
+        // fallback to 15 days if API fails
+        const fallbackDate = new Date();
+        fallbackDate.setDate(fallbackDate.getDate() + 15);
+        setTargetDate(fallbackDate);
+      }
     };
-    fetchTargetDate();
+
+    fetchCountdown();
   }, []);
 
   // Countdown logic
   useEffect(() => {
     if (!targetDate) return;
 
+    // ✅ Start countdown only after we have targetDate
     const interval = setInterval(() => {
       const now = new Date().getTime();
       const distance = targetDate.getTime() - now;
@@ -49,6 +61,9 @@ const Countdown = () => {
       const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
       setTimeLeft({ days, hours, minutes, seconds });
+
+      // ✅ Turn off loader once first countdown tick is calculated
+      setLoading(false);
     }, 1000);
 
     return () => clearInterval(interval);
@@ -98,6 +113,11 @@ const Countdown = () => {
     gap: windowWidth < 640 ? "10px" : "20px",
     textAlign: "center",
   };
+
+  // Loader (only while waiting for targetDate + first countdown tick)
+  if (loading) {
+    return <></>;
+  }
 
   return (
     <div style={containerStyle}>
