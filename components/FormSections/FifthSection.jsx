@@ -95,7 +95,7 @@ const FifthSection = ({ handleBack }) => {
   return (
     <>
       {isSubmitting ? (
-        <CircularProgressBar duration={1000} />
+        <CircularProgressBar duration={5000} />
       ) : (
         <Form
           {...form}
