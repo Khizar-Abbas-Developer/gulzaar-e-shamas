@@ -7,6 +7,7 @@ const initialState = {
   lineage_information: {},
   residential_information: {},
   agreements_information: {},
+  trackingId: "",
 };
 
 const infoSlice = createSlice({
@@ -32,7 +33,15 @@ const infoSlice = createSlice({
       state.agreements_information = action.payload;
     },
     resetStates: (state) => {
-      return initialState; // Reset all states to initial state
+      const currentTrackingId = state.trackingId; // keep the existing trackingId
+      return {
+        ...initialState,
+        trackingId: currentTrackingId, // restore it after reset
+      };
+    },
+
+    setTrackingId: (state, action) => {
+      state.trackingId = action.payload;
     },
   },
 });
@@ -44,6 +53,7 @@ export const {
   storeFourthSection,
   storeFifthSection,
   setUploading,
+  setTrackingId,
   resetStates,
 } = infoSlice.actions;
 export default infoSlice.reducer;

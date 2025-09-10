@@ -13,7 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { createDataToSend } from "@/lib/utils";
 import { ClipLoader } from "react-spinners";
 import { useRouter } from "next/navigation";
-import { resetStates } from "@/redux/information/info";
+import { resetStates, setTrackingId } from "@/redux/information/info";
 
 const FifthSection = ({ handleBack }) => {
   const dataFromRedux = useSelector((state) => state.info);
@@ -72,10 +72,13 @@ const FifthSection = ({ handleBack }) => {
       };
       console.log(updatedData);
 
-      await axios.post(
+      const response = await axios.post(
         `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/shajraForm/create`,
         updatedData
       );
+
+      dispatch(setTrackingId(response.data.data.trackingId)); // This will reset all the states to initialState
+
       setTimeout(() => {
         dispatch(resetStates()); // This will reset all the states to initialState
         router.push("/success");
