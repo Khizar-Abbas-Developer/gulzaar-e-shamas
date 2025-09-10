@@ -1,3 +1,4 @@
+import { livingSince } from "@/constants";
 import { z } from "zod";
 
 export const firstSectionSchema = z.object({
@@ -109,9 +110,8 @@ export const fourthSectionSchema = z.object({
   livingSince: z
     .string()
     .min(1, "This field is required")
-    .max(50, "Too long") // optional length limit
-    .refine((val) => /^[\d\s\w-]+$/.test(val), {
-      message: "Please enter a valid string like '1 year', '6 months'",
+    .refine((val) => livingSince.includes(val), {
+      message: "Please select a valid option",
     }),
 
   completeAddress: z
